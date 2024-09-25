@@ -36,24 +36,24 @@ jobs:
       - uses: pnpm/action-setup@v4
       - run: pnpm npm install
       - run: pnpm npm run build
-      - run: pnpm npm publish --access=public --no-git-checks
+      - run: pnpm npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.PUBLISH_NPM_TOKEN}}
 
   # publish to gpr
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22.x"
-          registry-url: https://npm.pkg.github.com/
-          scope: "@cyn"
-      - uses: pnpm/action-setup@v4
-      - run: pnpm install
-      - run: pnpm run build
-      - run: pnpm publish --access=public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.PUBLISH_GITHUB_TOKEN}}
+  # publish-gpr:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "22.x"
+  #         registry-url: https://npm.pkg.github.com/
+  #         scope: "@cyn"
+  #     - uses: pnpm/action-setup@v4
+  #     - run: pnpm install
+  #     - run: pnpm run build
+  #     - run: pnpm publish
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.PUBLISH_GITHUB_TOKEN}}
