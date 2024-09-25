@@ -36,7 +36,7 @@ jobs:
       - uses: pnpm/action-setup@v4
       - run: pnpm npm install
       - run: pnpm npm run build
-      - run: pnpm npm publish
+      - run: pnpm npm publish --access=public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.PUBLISH_NPM_TOKEN}}
 
@@ -54,6 +54,6 @@ jobs:
       - uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm run build
-      - run: pnpm publish
+      - run: pnpm publish --access=public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.PUBLISH_GITHUB_TOKEN}}
