@@ -358,6 +358,16 @@ export interface MessageDelete extends MessageBase {
     }
 }
 
+export type FileFolder =
+    | {
+        type: 'file'
+        name: string
+    }
+    | {
+        type: 'folder'
+        name: string
+    }
+
 // ---
 export interface MessageListFiles extends MessageBase {
     url: '/fs/list';
@@ -369,6 +379,22 @@ export interface MessageListFiles extends MessageBase {
     output: {
         body: {
             success: boolean
+            list: FileFolder[]
+        };
+    }
+}
+
+export interface MessageFileSize extends MessageBase {
+    url: '/fs/file/size';
+    input: {
+        body: {
+            path: string
+        }
+    }
+    output: {
+        body: {
+            success: boolean
+            size: number
         };
     }
 }
@@ -562,6 +588,7 @@ export type Message =
     | MakeInputOutput<MessageEngine, 'input'>
     | MakeInputOutput<MessageRun, 'input'>
     | MakeInputOutput<MessageExplorerOpen, 'input'>
+    | MakeInputOutput<MessageFileSize, 'input'>
 
 export type Response =
     | MakeInputOutput<MessagePaths, 'output'>
@@ -598,3 +625,4 @@ export type Response =
     | MakeInputOutput<MessageEngine, 'output'>
     | MakeInputOutput<MessageRun, 'output'>
     | MakeInputOutput<MessageExplorerOpen, 'output'>
+    | MakeInputOutput<MessageFileSize, 'output'>
