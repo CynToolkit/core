@@ -456,6 +456,22 @@ export interface MessageReadFile extends MessageBase {
 }
 
 // ---
+export interface MessageReadFileBinary extends MessageBase {
+    url: '/fs/file/read/binary';
+    input: {
+        body: {
+            path: string // path or URL
+        }
+    }
+    output: {
+        body: {
+            success: boolean
+            content: Array<number>
+        };
+    }
+}
+
+// ---
 export interface MessageWriteFile extends MessageBase {
     url: '/fs/file/write';
     input: {
@@ -540,6 +556,7 @@ export type Message =
     | MakeInputOutput<MessageMove, 'input'>
     | MakeInputOutput<MessageOpen, 'input'>
     | MakeInputOutput<MessageReadFile, 'input'>
+    | MakeInputOutput<MessageReadFileBinary, 'input'>
     | MakeInputOutput<MessageWriteFile, 'input'>
     | MakeInputOutput<MessageExistFile, 'input'>
     | MakeInputOutput<MessageEngine, 'input'>
@@ -575,6 +592,7 @@ export type Response =
     | MakeInputOutput<MessageMove, 'output'>
     | MakeInputOutput<MessageOpen, 'output'>
     | MakeInputOutput<MessageReadFile, 'output'>
+    | MakeInputOutput<MessageReadFileBinary, 'output'>
     | MakeInputOutput<MessageWriteFile, 'output'>
     | MakeInputOutput<MessageExistFile, 'output'>
     | MakeInputOutput<MessageEngine, 'output'>
