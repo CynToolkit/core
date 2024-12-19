@@ -541,6 +541,22 @@ export interface MessageExistFile extends MessageBase {
     }
 }
 
+export interface SteamRaw extends MessageBase {
+    url: '/steam/raw';
+    input: {
+        body: {
+            namespace: string;
+            method: string;
+            args: unknown[]
+        };
+    };
+    output: {
+        body: {
+            success: boolean;
+            data: unknown
+        };
+    };
+}
 
 export type MakeInputOutput<T extends MessageBase, KEY extends 'input' | 'output'> = {
     url: T['url'];
@@ -585,6 +601,7 @@ export type Message =
     | MakeInputOutput<MessageReadFileBinary, 'input'>
     | MakeInputOutput<MessageWriteFile, 'input'>
     | MakeInputOutput<MessageExistFile, 'input'>
+    | MakeInputOutput<SteamRaw, 'input'>
     | MakeInputOutput<MessageEngine, 'input'>
     | MakeInputOutput<MessageRun, 'input'>
     | MakeInputOutput<MessageExplorerOpen, 'input'>
@@ -626,3 +643,4 @@ export type Response =
     | MakeInputOutput<MessageRun, 'output'>
     | MakeInputOutput<MessageExplorerOpen, 'output'>
     | MakeInputOutput<MessageFileSize, 'output'>
+    | MakeInputOutput<SteamRaw, 'output'>
