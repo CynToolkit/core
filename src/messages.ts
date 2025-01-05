@@ -374,6 +374,7 @@ export interface MessageListFiles extends MessageBase {
     input: {
         body: {
             path: string
+            recursive?: boolean
         }
     }
     output: {
@@ -477,6 +478,9 @@ export interface MessageReadFile extends MessageBase {
         body: {
             success: boolean
             content: string
+        } | {
+            success: false
+            error: string
         };
     }
 }
