@@ -362,10 +362,14 @@ export type FileFolder =
     | {
         type: 'file'
         name: string
+        parentPath: string
+        path: string
     }
     | {
         type: 'folder'
         name: string
+        parentPath: string
+        path: string
     }
 
 // ---
