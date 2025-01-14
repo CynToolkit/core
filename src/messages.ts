@@ -18,11 +18,31 @@ export interface MessageFsWriteGetBody {
     encoding: 'utf8';
 }
 
+export type Paths =
+    | 'home'
+    | 'appData'
+    | 'userData'
+    | 'sessionData'
+    | 'temp'
+    | 'exe'
+    | 'module'
+    | 'desktop'
+    | 'documents'
+    | 'downloads'
+    | 'music'
+    | 'pictures'
+    | 'videos'
+    | 'recent'
+    | 'logs'
+    | 'crashDumps'
+    | 'app'
+    | 'project'
+
 export interface MessagePaths extends MessageBase {
     url: '/paths';
     input: {
         body: {
-            name: string
+            name: Paths
         }
     }
     output: {
@@ -220,6 +240,20 @@ export interface MessageShowDevTools extends MessageBase {
     input: {
         body: {
             value: boolean
+        }
+    }
+    output: {
+        body: {
+            success: boolean
+        };
+    }
+}
+// ---
+export interface MessageSetFullscreen extends MessageBase {
+    url: '/window/set-fullscreen';
+    input: {
+        body: {
+            value: 'normal' | 'fullscreen'
         }
     }
     output: {
@@ -594,6 +628,7 @@ export type Message =
     | MakeInputOutput<MessageSetX, 'input'>
     | MakeInputOutput<MessageSetY, 'input'>
     | MakeInputOutput<MessageShowDevTools, 'input'>
+    | MakeInputOutput<MessageSetFullscreen, 'input'>
     | MakeInputOutput<MessageWindowUnmaximize, 'input'>
     | MakeInputOutput<MessageShowFolderDialog, 'input'>
     | MakeInputOutput<MessageShowOpenDialog, 'input'>
@@ -632,6 +667,7 @@ export type Response =
     | MakeInputOutput<MessageSetX, 'output'>
     | MakeInputOutput<MessageSetY, 'output'>
     | MakeInputOutput<MessageShowDevTools, 'output'>
+    | MakeInputOutput<MessageSetFullscreen, 'output'>
     | MakeInputOutput<MessageWindowUnmaximize, 'output'>
     | MakeInputOutput<MessageShowFolderDialog, 'output'>
     | MakeInputOutput<MessageShowOpenDialog, 'output'>
