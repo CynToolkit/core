@@ -569,37 +569,6 @@ export interface MessageExistFile extends MessageBase {
         };
     }
 }
-// ---
-export interface MessageRemoveFile extends MessageBase {
-    url: '/fs/remove';
-    input: {
-        body: {
-            path: string
-            recursive: boolean
-        }
-    }
-    output: {
-        body: {
-            success: boolean
-        };
-    }
-}
-
-// ---
-export interface MessageMoveFile extends MessageBase {
-    url: '/fs/move';
-    input: {
-        body: {
-            source: string
-            destination: string
-        }
-    }
-    output: {
-        body: {
-            success: boolean
-        };
-    }
-}
 
 export interface SteamRaw extends MessageBase {
     url: '/steam/raw';
