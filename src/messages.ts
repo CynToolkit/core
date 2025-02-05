@@ -21,9 +21,16 @@ export interface MessageFsWriteGetBody {
 }
 
 export type Paths =
+    // home
     | 'home'
+    // appdata/roaming
     | 'appData'
+    // appdata/roaming/appid
     | 'userData'
+    // appdata/local
+    | 'localAppData'
+    // appdata/local/appid
+    | 'localUserData'
     | 'sessionData'
     | 'temp'
     | 'exe'
