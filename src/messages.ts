@@ -1,3 +1,5 @@
+import type { OpenMode } from "node:fs";
+
 export interface MessageBase {
     url: string;
     correlationId?: string;
@@ -329,22 +331,6 @@ export interface MessageShowSaveDialog extends MessageBase {
 }
 
 // ---
-export interface MessageAppendFile extends MessageBase {
-    url: '/fs/file/append';
-    input: {
-        body: {
-            path: string
-            content: string
-        }
-    }
-    output: {
-        body: {
-            success: boolean
-        };
-    }
-}
-
-// ---
 export interface MessageCopyFile extends MessageBase {
     url: '/fs/copy';
     input: {
@@ -543,6 +529,7 @@ export interface MessageWriteFile extends MessageBase {
             path: string // path or URL
             contents: string
             encoding: BufferEncoding | undefined
+            flag?: OpenMode | undefined
         }
     }
     output: {
@@ -570,6 +557,37 @@ export interface MessageExistFile extends MessageBase {
     input: {
         body: {
             path: string // path or URL
+        }
+    }
+    output: {
+        body: {
+            success: boolean
+        };
+    }
+}
+// ---
+export interface MessageRemoveFile extends MessageBase {
+    url: '/fs/remove';
+    input: {
+        body: {
+            path: string
+            recursive: boolean
+        }
+    }
+    output: {
+        body: {
+            success: boolean
+        };
+    }
+}
+
+// ---
+export interface MessageMoveFile extends MessageBase {
+    url: '/fs/move';
+    input: {
+        body: {
+            source: string
+            destination: string
         }
     }
     output: {
@@ -629,7 +647,6 @@ export type Message =
     | MakeInputOutput<MessageShowFolderDialog, 'input'>
     | MakeInputOutput<MessageShowOpenDialog, 'input'>
     | MakeInputOutput<MessageShowSaveDialog, 'input'>
-    | MakeInputOutput<MessageAppendFile, 'input'>
     | MakeInputOutput<MessageCopyFile, 'input'>
     | MakeInputOutput<MessageCreateFolder, 'input'>
     | MakeInputOutput<MessageDelete, 'input'>
@@ -645,6 +662,8 @@ export type Message =
     | MakeInputOutput<MessageRun, 'input'>
     | MakeInputOutput<MessageExplorerOpen, 'input'>
     | MakeInputOutput<MessageFileSize, 'input'>
+    | MakeInputOutput<MessageRemoveFile, 'input'>
+    | MakeInputOutput<MessageMoveFile, 'input'>
 
 export type Response =
     | MakeInputOutput<MessagePaths, 'output'>
@@ -668,7 +687,6 @@ export type Response =
     | MakeInputOutput<MessageShowFolderDialog, 'output'>
     | MakeInputOutput<MessageShowOpenDialog, 'output'>
     | MakeInputOutput<MessageShowSaveDialog, 'output'>
-    | MakeInputOutput<MessageAppendFile, 'output'>
     | MakeInputOutput<MessageCopyFile, 'output'>
     | MakeInputOutput<MessageCreateFolder, 'output'>
     | MakeInputOutput<MessageDelete, 'output'>
@@ -684,3 +702,5 @@ export type Response =
     | MakeInputOutput<MessageExplorerOpen, 'output'>
     | MakeInputOutput<MessageFileSize, 'output'>
     | MakeInputOutput<SteamRaw, 'output'>
+    | MakeInputOutput<MessageRemoveFile, 'output'>
+    | MakeInputOutput<MessageMoveFile, 'output'>
