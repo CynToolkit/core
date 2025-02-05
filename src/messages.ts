@@ -432,6 +432,7 @@ export interface MessageMove extends MessageBase {
         body: {
             source: string
             destination: string
+            overwrite: boolean
         }
     }
     output: {
