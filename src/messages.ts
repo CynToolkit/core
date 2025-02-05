@@ -369,6 +369,7 @@ export interface MessageDelete extends MessageBase {
     input: {
         body: {
             path: string
+            recursive?: boolean
         }
     }
     output: {
