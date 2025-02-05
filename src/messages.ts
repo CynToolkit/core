@@ -635,8 +635,6 @@ export type Message =
     | MakeInputOutput<MessageRun, 'input'>
     | MakeInputOutput<MessageExplorerOpen, 'input'>
     | MakeInputOutput<MessageFileSize, 'input'>
-    | MakeInputOutput<MessageRemoveFile, 'input'>
-    | MakeInputOutput<MessageMoveFile, 'input'>
 
 export type Response =
     | MakeInputOutput<MessagePaths, 'output'>
@@ -675,5 +673,3 @@ export type Response =
     | MakeInputOutput<MessageExplorerOpen, 'output'>
     | MakeInputOutput<MessageFileSize, 'output'>
     | MakeInputOutput<SteamRaw, 'output'>
-    | MakeInputOutput<MessageRemoveFile, 'output'>
-    | MakeInputOutput<MessageMoveFile, 'output'>
