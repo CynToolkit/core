@@ -257,12 +257,15 @@ export interface MessageShowDevTools extends MessageBase {
         };
     }
 }
+
+export type FullscreenStates = 'normal' | 'fullscreen'
+
 // ---
 export interface MessageSetFullscreen extends MessageBase {
     url: '/window/set-fullscreen';
     input: {
         body: {
-            value: 'normal' | 'fullscreen'
+            value: FullscreenStates
         }
     }
     output: {
@@ -596,6 +599,16 @@ export interface SteamRaw extends MessageBase {
     };
 }
 
+export interface FullscreenState extends MessageBase {
+    url: '/window/fullscreen-state';
+    input: {
+        body: {
+            state: FullscreenStates
+        };
+    };
+    output: never;
+}
+
 export type MakeInputOutput<T extends MessageBase, KEY extends 'input' | 'output'> = {
     url: T['url'];
     correlationId?: T['correlationId'];
@@ -644,6 +657,7 @@ export type Message =
     | MakeInputOutput<MessageRun, 'input'>
     | MakeInputOutput<MessageExplorerOpen, 'input'>
     | MakeInputOutput<MessageFileSize, 'input'>
+    | MakeInputOutput<FullscreenState, 'input'>
 
 export type Response =
     | MakeInputOutput<MessagePaths, 'output'>
@@ -682,3 +696,4 @@ export type Response =
     | MakeInputOutput<MessageExplorerOpen, 'output'>
     | MakeInputOutput<MessageFileSize, 'output'>
     | MakeInputOutput<SteamRaw, 'output'>
+    | MakeInputOutput<FullscreenState, 'output'>
