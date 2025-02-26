@@ -1,5 +1,9 @@
 import type { OpenMode } from "node:fs";
 
+export type SteamworksClient = import('steamworks.js').Client
+// @ts-expect-error
+export type NamespacedFunctionReturnType<TNamespace extends keyof SteamworksClient, TFunction extends keyof SteamworksClient[TNamespace]> = ReturnType<SteamworksClient[TNamespace][TFunction]>
+
 export interface MessageBase {
     url: string;
     correlationId?: string;
@@ -582,7 +586,7 @@ export interface MessageExistFile extends MessageBase {
     }
 }
 
-export interface SteamRaw extends MessageBase {
+export interface SteamRaw<TNamespace extends keyof SteamworksClient, TFunction extends keyof SteamworksClient[TNamespace]> extends MessageBase {
     url: '/steam/raw';
     input: {
         body: {
@@ -594,7 +598,7 @@ export interface SteamRaw extends MessageBase {
     output: {
         body: {
             success: boolean;
-            data: unknown
+            data: NamespacedFunctionReturnType<TNamespace, TFunction>
         };
     };
 }
@@ -652,7 +656,7 @@ export type Message =
     | MakeInputOutput<MessageReadFileBinary, 'input'>
     | MakeInputOutput<MessageWriteFile, 'input'>
     | MakeInputOutput<MessageExistFile, 'input'>
-    | MakeInputOutput<SteamRaw, 'input'>
+    | MakeInputOutput<SteamRaw<any, any>, 'input'>
     | MakeInputOutput<MessageEngine, 'input'>
     | MakeInputOutput<MessageRun, 'input'>
     | MakeInputOutput<MessageExplorerOpen, 'input'>
@@ -695,5 +699,5 @@ export type Response =
     | MakeInputOutput<MessageRun, 'output'>
     | MakeInputOutput<MessageExplorerOpen, 'output'>
     | MakeInputOutput<MessageFileSize, 'output'>
-    | MakeInputOutput<SteamRaw, 'output'>
+    | MakeInputOutput<SteamRaw<any, any>, 'output'>
     | MakeInputOutput<FullscreenState, 'output'>
