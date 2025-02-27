@@ -612,6 +612,21 @@ export interface FullscreenState extends MessageBase {
     };
     output: never;
 }
+export interface MessageInfos extends MessageBase {
+    url: '/infos';
+    input: {
+        body: {
+
+        };
+    };
+    output: {
+        body: {
+            platform: string;
+            arch: string;
+            version: string;
+        }
+    };
+}
 
 export type MakeInputOutput<T extends MessageBase, KEY extends 'input' | 'output'> = {
     url: T['url'];
@@ -662,6 +677,7 @@ export type Message =
     | MakeInputOutput<MessageExplorerOpen, 'input'>
     | MakeInputOutput<MessageFileSize, 'input'>
     | MakeInputOutput<FullscreenState, 'input'>
+    | MakeInputOutput<MessageInfos, 'input'>
 
 export type Response =
     | MakeInputOutput<MessagePaths, 'output'>
@@ -701,3 +717,4 @@ export type Response =
     | MakeInputOutput<MessageFileSize, 'output'>
     | MakeInputOutput<SteamRaw<any, any>, 'output'>
     | MakeInputOutput<FullscreenState, 'output'>
+    | MakeInputOutput<MessageInfos, 'output'>
