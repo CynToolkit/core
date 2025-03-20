@@ -603,6 +603,27 @@ export interface SteamRaw<TNamespace extends keyof SteamworksClient, TFunction e
     };
 }
 
+// https://discord.com/developers/docs/events/gateway-events#activity-object
+export interface DiscordSetActivity extends MessageBase {
+    url: '/discord/set-activity';
+    input: {
+        body: {
+            details: string
+            state: string
+            startTimestamp: string
+            largeImageKey: string
+            largeImageText:string
+            smallImageKey:string
+            smallImageText: string
+        };
+    };
+    output: {
+        body: {
+            success: boolean;
+        };
+    };
+}
+
 export interface FullscreenState extends MessageBase {
     url: '/window/fullscreen-state';
     input: {
