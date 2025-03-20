@@ -699,6 +699,7 @@ export type Message =
     | MakeInputOutput<MessageFileSize, 'input'>
     | MakeInputOutput<FullscreenState, 'input'>
     | MakeInputOutput<MessageInfos, 'input'>
+    | MakeInputOutput<DiscordSetActivity, 'input'>
 
 export type Response =
     | MakeInputOutput<MessagePaths, 'output'>
@@ -739,3 +740,4 @@ export type Response =
     | MakeInputOutput<SteamRaw<any, any>, 'output'>
     | MakeInputOutput<FullscreenState, 'output'>
     | MakeInputOutput<MessageInfos, 'output'>
+    | MakeInputOutput<DiscordSetActivity, 'output'>
